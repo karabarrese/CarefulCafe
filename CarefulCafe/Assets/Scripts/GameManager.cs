@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic; 
 
 public class GameManager : MonoBehaviour
 {
     // Game manager variables
     public static GameManager Instance { get; private set; }
     public int score = 0; // TODO: customers served? money made?
+    private List<CustomerInfo> customers;
+    private int curCustomerIndex = 0;
 
     // Keep track of step
 
@@ -20,6 +23,17 @@ public class GameManager : MonoBehaviour
 
     private void Start(){
         curStep = Step.ORDER;
+
+        // initialize customer list
+        customers = new List<CustomerInfo>
+        {
+            new CustomerInfo("Kellay", Allergy.None),
+            new CustomerInfo("Limmy", Allergy.Dairy),
+            new CustomerInfo("Angi", Allergy.Gluten),
+            new CustomerInfo("Car", Allergy.Egg),
+            new CustomerInfo("Tiffer", Allergy.Dairy),
+            new CustomerInfo("Irah", Allergy.Gluten)
+        };
     }
 
     private void Awake()
@@ -47,6 +61,7 @@ public class GameManager : MonoBehaviour
                     if (dialogue != null){
                         dialogue.UpdateText(nextText);
                     }
+                    prevStep = curStep;
                 }
                 
                 if (dialogue.IsTextDone()){
@@ -54,13 +69,30 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case Step.BAKING_MINIGAME:
+                // TODO: remove, used to test customers
+                if(curStep != prevStep){
+                    Debug.Log("In Baking Minigame");
+                    string customerText = $"Hi {customers[curCustomerIndex].Name}, you have {customers[curCustomerIndex].CusAllergy}";
+                    string[] nextText = new string[] { customerText, "yay" };
+
+                    if (dialogue != null){
+                        dialogue.UpdateText(nextText);
+                    }
+                    prevStep = curStep;
+                    curCustomerIndex++;
+                }
+
+                if (dialogue.IsTextDone()){
+                    curStep = Step.WASHING_MINIGAME;
+                }
+                
                 break;
             case Step.WASHING_MINIGAME:
                 break;
             case Step.GIVE_ORDER:
                 break;
         }
-        prevStep = curStep;
+        Debug.Log(curStep);
     }
 
     public void ChangeToPantryMinigame(){
