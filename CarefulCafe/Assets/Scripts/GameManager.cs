@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     // Variables for scene
     [SerializeField] private GameObject player;
     [SerializeField] private Dialogue dialogue;
+    [SerializeField] private CursorChanger cursorChanger;
 
     private void Start(){
         curStep = Step.ORDER;
@@ -60,10 +61,13 @@ public class GameManager : MonoBehaviour
                 break;
         }
         prevStep = curStep;
-        Debug.Log(curStep);
     }
 
     public void ChangeToPantryMinigame(){
         curStep = Step.PANTRY_MINIGAME;
+
+        if (cursorChanger != null){
+            cursorChanger.SetDefaultCursor();
+        }
     }
 }
