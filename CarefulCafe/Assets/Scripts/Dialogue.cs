@@ -13,12 +13,11 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private float textSpeed;
 
     private int index;
+    private bool isTextDone = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        textComponent.text = string.Empty;
-        nextButton.gameObject.SetActive(false); // hide button
         nextButton.onClick.AddListener(OnNextButtonPressed); // track if button is clicked
         StartDialogue();
     }
@@ -31,7 +30,15 @@ public class Dialogue : MonoBehaviour
 
     void StartDialogue()
     {
+        if (nextButton == null || dialogueCanvas == null){
+            return;
+        }
+
+        isTextDone = false;
+        textComponent.text = string.Empty;
+        nextButton.gameObject.SetActive(false); // hide button
         index = 0;
+        dialogueCanvas.gameObject.SetActive(true);
         StartCoroutine(TypeLine());
     }
 
@@ -65,6 +72,16 @@ public class Dialogue : MonoBehaviour
             if (dialogueCanvas != null){
                 dialogueCanvas.gameObject.SetActive(false);
             }
+            isTextDone = true;
         }
+    }
+
+    public void UpdateText(string[] newLines){
+        lines = newLines;
+        StartDialogue();
+    }
+
+    public bool IsTextDone(){
+        return isTextDone;
     }
 }

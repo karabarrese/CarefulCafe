@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     // Variables for scene
     [SerializeField] private GameObject player;
+    [SerializeField] private Dialogue dialogue;
 
     private void Start(){
         curStep = Step.ORDER;
@@ -39,6 +40,17 @@ public class GameManager : MonoBehaviour
             case Step.ORDER:
                 break;
             case Step.PANTRY_MINIGAME:
+                if(curStep != prevStep){
+                    // to test dialogue, TODO: update to match behavior
+                    string[] nextText = new string[] {"You are now about to play the pantry minigame, so let's pretend this is useful advice", "Good luck!"};
+                    if (dialogue != null){
+                        dialogue.UpdateText(nextText);
+                    }
+                }
+                
+                if (dialogue.IsTextDone()){
+                    curStep = Step.BAKING_MINIGAME;
+                }
                 break;
             case Step.BAKING_MINIGAME:
                 break;
@@ -47,5 +59,11 @@ public class GameManager : MonoBehaviour
             case Step.GIVE_ORDER:
                 break;
         }
+        prevStep = curStep;
+        Debug.Log(curStep);
+    }
+
+    public void ChangeToPantryMinigame(){
+        curStep = Step.PANTRY_MINIGAME;
     }
 }
