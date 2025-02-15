@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
             case Step.PANTRY_MINIGAME:
                 if(curStep != prevStep){
                     // to test dialogue, TODO: update to match behavior
+                    dialogue.SetCurEmotion(CharacterEmotion.Sweat);
                     string[] nextText = new string[] {"You are now about to play the pantry minigame, so let's pretend this is useful advice", "Good luck!"};
                     if (dialogue != null){
                         dialogue.UpdateText(nextText);
@@ -71,7 +72,7 @@ public class GameManager : MonoBehaviour
             case Step.BAKING_MINIGAME:
                 // TODO: remove, used to test customers
                 if(curStep != prevStep){
-                    Debug.Log("In Baking Minigame");
+                    dialogue.SetCurEmotion(CharacterEmotion.Heart);
                     string customerText = $"Hi {customers[curCustomerIndex].Name}, you have {customers[curCustomerIndex].CusAllergy}";
                     string[] nextText = new string[] { customerText, "yay" };
 

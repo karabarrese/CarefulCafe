@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public enum CharacterEmotion {None, Sweat, Heart}
+
 public class Dialogue : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI textComponent;
@@ -14,6 +16,10 @@ public class Dialogue : MonoBehaviour
 
     private int index;
     private bool isTextDone = true;
+
+    private CharacterEmotion curEmotion = CharacterEmotion.None;
+    [SerializeField] private Image SweatImg;
+    [SerializeField] private Image HeartImg;
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +40,32 @@ public class Dialogue : MonoBehaviour
             return;
         }
 
+        UpdateCharacterImg();
         isTextDone = false;
         textComponent.text = string.Empty;
         nextButton.gameObject.SetActive(false); // hide button
         index = 0;
         dialogueCanvas.gameObject.SetActive(true);
         StartCoroutine(TypeLine());
+    }
+
+    private void UpdateCharacterImg()
+    {
+        if (curEmotion == CharacterEmotion.None){
+            SweatImg.enabled = false;
+            HeartImg.enabled = false;
+        } else if (curEmotion == CharacterEmotion.Sweat){
+            SweatImg.enabled = true;
+            HeartImg.enabled = false;
+        } else if (curEmotion == CharacterEmotion.Heart){
+            SweatImg.enabled = false;
+            HeartImg.enabled = true;
+        }
+    }
+
+    public void SetCurEmotion(CharacterEmotion newEmotion){
+        curEmotion = newEmotion;
+        UpdateCharacterImg();
     }
 
     IEnumerator TypeLine()
