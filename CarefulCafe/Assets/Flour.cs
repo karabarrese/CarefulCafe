@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class Flour : MonoBehaviour
 {
+    public uiManager uiManagerScript; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +17,10 @@ public class GameManager : MonoBehaviour
     {
         
     }
+    
+    void OnMouseDown()
+    {
+        uiManagerScript.openFlourUI(); // Calls the UI function
+    }
 }
+
