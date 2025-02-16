@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoapScript : MonoBehaviour
+public class SpongeScript : MonoBehaviour
 {
     public Animator animator;
     public bool soaped;
