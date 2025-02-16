@@ -206,7 +206,7 @@ public class uiManager : MonoBehaviour
     }
 
 //switch case, 1 = almond flour, 2 = flour, 3 = milk, 4 = almond milk, 5 = not egg
-    public void openAlmondFlourMilkUI()
+    public void openAlmondFlourUI()
     {
         almondFlourNutrition.SetActive(true);
         Add.SetActive(true);
@@ -238,7 +238,7 @@ public class uiManager : MonoBehaviour
     {
         milkNutrition.SetActive(true);
         Add.SetActive(true);
-        whatIngredient = 4;
+        whatIngredient = 3;
         backToCabinet.SetActive(true);
     }
     private void ShowDialogue(string message)
