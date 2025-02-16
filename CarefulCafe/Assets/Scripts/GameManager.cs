@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public enum Step {NONE, TUTORIAL, GET_ORDER, ORDER, PANTRY_MINIGAME, MIXING_MINIGAME, BAKING_MINIGAME, WASHING_MINIGAME, GIVE_ORDER, GAME_OVER}
     private Step curStep;
     private Step prevStep = Step.NONE;
+    private bool doneIntro = false;
 
     // Variables for scene
     [SerializeField] private GameObject player;
@@ -66,19 +67,19 @@ public class GameManager : MonoBehaviour
 
                         dialogue.UpdateFullDialogue(dialogueArray);
                     }
+
+                    PlayerPrefs.GetInt("DoneWithMinigame", 0);
+                    PlayerPrefs.Save();
                 }
 
-                // if (dialogue.IsTextDone()){ // TODO, make user play game
-                //     PlayerPrefs.GetInt("DoneWithMinigame", 0);
-                //     SceneManager.LoadScene("MixingMG"); // TODO: epipen
-                // }
+                if (dialogue.IsTextDone() && !doneIntro){ 
+                    doneIntro = true;
+                    SceneManager.LoadScene("Epipen");
+                }
 
-                // if (PlayerPrefs.GetInt("DoneWithMinigame", 0) == 1){
-                //     curStep = Step.GET_ORDER;
-                //     PlayerPrefs.SetInt("DoneWithMinigame", 0);
-                // }
-                if (dialogue.IsTextDone()){
+                if (PlayerPrefs.GetInt("DoneWithMinigame", 0) == 1){
                     curStep = Step.GET_ORDER;
+                    PlayerPrefs.SetInt("DoneWithMinigame", 0);
                 }
                 break;
 

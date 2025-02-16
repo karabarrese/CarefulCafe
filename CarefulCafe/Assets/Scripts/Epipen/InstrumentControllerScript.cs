@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InstrumentControllerScript : MonoBehaviour
 {
@@ -64,6 +65,10 @@ public class InstrumentControllerScript : MonoBehaviour
         arrow.SetActive(false);
         yield return new WaitForSeconds(2f);
         yield return WaitForSpaceKey();
+
+        PlayerPrefs.SetInt("DoneWithMinigame", 1);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("KitchenScene");
     }
 
     private IEnumerator WaitForSpaceKey()
