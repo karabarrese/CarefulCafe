@@ -24,6 +24,7 @@ public class MixingWhisk : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     [SerializeField] private Image mix;
     [SerializeField] private Dialogue dialogueBox;
     [SerializeField] private Sprite managerDialogueSprite;
+    [SerializeField] private CursorChanger cursor;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -37,6 +38,9 @@ public class MixingWhisk : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         // track drag time
         dragStartTime = Time.time;
         isDragging = true;
+
+        // wear glove
+        cursor.SetGlovedCursor();
     }
 
     public void OnDrag(PointerEventData eventData)

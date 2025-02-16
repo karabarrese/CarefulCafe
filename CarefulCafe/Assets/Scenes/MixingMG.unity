@@ -437,6 +437,7 @@ MonoBehaviour:
   mix: {fileID: 2105439723}
   dialogueBox: {fileID: 431967707}
   managerDialogueSprite: {fileID: 21300000, guid: d7cd499c574d94a89a5458d6bea4ea4f, type: 3}
+  cursor: {fileID: 1413739159}
 --- !u!1 &817045180
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,6 +600,7 @@ GameObject:
   - component: {fileID: 1413739157}
   - component: {fileID: 1413739156}
   - component: {fileID: 1413739155}
+  - component: {fileID: 1413739159}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -696,6 +698,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1413739159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413739154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f658c33900b43d7964c2e3a8daaf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultCursorImg: {fileID: 2800000, guid: 5d1d18bbeb86e49d3a955ffd9918f292, type: 3}
+  glovedCursorImg: {fileID: 2800000, guid: 9e4c86e3c33514c09b15fb2ceb864b4c, type: 3}
 --- !u!1 &1501355807
 GameObject:
   m_ObjectHideFlags: 0

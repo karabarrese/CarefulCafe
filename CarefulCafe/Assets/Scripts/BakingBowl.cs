@@ -13,13 +13,12 @@ public class BakingBowl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     [SerializeField] private RectTransform targetArea; 
     [SerializeField] private Dialogue dialogue; 
     [SerializeField] private Sprite managerDialogueSprite;
+    [SerializeField] private CursorChanger cursor;
     private bool doneBaking = false;
 
     // variables to animate baking/door
     [SerializeField] private Image croissant;
     public Image door;
-    // public float moveDistance = 200f; 
-    // public float moveSpeed = 2f;
     private Vector3 doorTargetPosition;
 
     void Start()
@@ -50,6 +49,7 @@ public class BakingBowl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         Vector2 localPointerPosition = eventData.position - (Vector2)rectTransform.position;
         offset = localPointerPosition;
+        cursor.SetGlovedCursor();
     }
 
     public void OnDrag(PointerEventData eventData)
