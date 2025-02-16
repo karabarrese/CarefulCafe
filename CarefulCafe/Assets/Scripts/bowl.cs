@@ -12,8 +12,16 @@ public class bowl : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("Egg is in the bowl!");
-        eggActive = false;
+       if (other.CompareTag("Respawn"))
+        {
+            Debug.Log("Egg is in the bowl and has respawned!");
+            eggActive = false;
+        }
+        if (other.CompareTag("Respawn"))
+        {
+            Debug.Log("Egg is in the bowl and has respawned!");
+            eggActive = false;
+        }
 
     }
     void Start()
