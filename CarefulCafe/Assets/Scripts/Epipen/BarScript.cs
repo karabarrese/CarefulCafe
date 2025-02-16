@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BarScript : MonoBehaviour
 {
-    public float height;
+    public float height; // Height of the Bar
     // Start is called before the first frame update
     public float GetHeight()
     {

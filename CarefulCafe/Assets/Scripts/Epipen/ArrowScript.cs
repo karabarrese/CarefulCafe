@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArrowScript : MonoBehaviour
 {
-    public BarScript bar; // Reference to the Bar object
+    public BarScript bar; // Reference to Bar object
     public Rigidbody2D rigid; // Reference to the Rigidbody2D component of the arrow
     public float speed; // Speed of the arrow's movement
     private bool movingUp = true; // Whether the arrow is moving up or down
@@ -24,14 +24,14 @@ public class ArrowScript : MonoBehaviour
         // If spacebar is pressed, stop the arrow
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            arrowisMoving = false; // Toggle the movement on or off
-            rigid.velocity = Vector2.zero; // Stop the arrow's movement
+            arrowisMoving = false; // Changes the flag to stop the arrow
+            rigid.velocity = Vector2.zero; // Stops the arrow's movement
 
         }
 
         if (arrowisMoving)
         {
-
+            // Calls MoveArrow() function to move the arrow
             MoveArrow();
         }
     }
@@ -40,13 +40,14 @@ public class ArrowScript : MonoBehaviour
     {
         Debug.Log("Arrow is moving :()");
         Debug.Log("Height of the bar is: " + bar.GetHeight());
+
         // Get the height of the bar
         float barHeight = bar.GetHeight();
 
-        // Check the current direction of the arrow and move it
+        // Checks if the arrow is moving up or down
         if (movingUp)
         {
-            // If the arrow has reached the top, switch direction
+            // If the arrow has reached the top of the bar, switch direction
             if (transform.position.y >= currentY + barHeight + 1)
             {
                 movingUp = false;
@@ -59,7 +60,7 @@ public class ArrowScript : MonoBehaviour
         }
         else
         {
-            // If the arrow has reached the bottom, switch direction
+            // If the arrow has reached the bottom of the bar, switch direction
             if (transform.position.y <= currentY - barHeight)
             {
                 movingUp = true;
