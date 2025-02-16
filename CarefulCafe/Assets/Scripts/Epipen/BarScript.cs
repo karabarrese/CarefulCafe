@@ -9,7 +9,7 @@ public class BarScript : MonoBehaviour
     public float GetHeight()
     {
         height = transform.localScale.y;
-        Debug.Log("Height of the bar is: " + height);
+        // Debug.Log("Height of the bar is: " + height);
         return height;
     }
 }

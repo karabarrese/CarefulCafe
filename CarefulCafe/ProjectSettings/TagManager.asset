@@ -5,14 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bar
+  - Arrow
+  - GreenArea
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Arrow
   - Water
   - UI
-  - 
+  - GreenArea
   - 
   - 
   - 
@@ -41,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 3157792899
+    locked: 0
+  - name: Leg
+    uniqueID: 4108896599
     locked: 0
   - name: Default
     uniqueID: 0
