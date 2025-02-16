@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class uiManager : MonoBehaviour
 {
@@ -29,7 +30,12 @@ public class uiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // TODO: go back to kitchen once you have all ingredients
+        if (Input.GetKeyDown(KeyCode.E)){
+            PlayerPrefs.SetInt("DoneWithMinigame", 1);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("KitchenScene");
+        } 
     }
     
     public void flourClick()

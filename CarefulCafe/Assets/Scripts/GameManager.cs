@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     // Game manager variables
-    public static GameManager Instance { get; private set; }
+    public static GameManager Instance;
     public int score = 0; // TODO: customers served? money made? badge?
     [SerializeField] private List<CustomerInfo> customers;
     private int curCustomerIndex = 0;
@@ -84,9 +84,6 @@ public class GameManager : MonoBehaviour
                         curStep = Step.GIVE_ORDER;
                     }
                 }
-
-                
-
                 break;
             case Step.PANTRY_MINIGAME:
                 if(curStep != prevStep){
@@ -98,13 +95,18 @@ public class GameManager : MonoBehaviour
                         dialogue.UpdateFullDialogue(dialogueArray);
                     }
 
+                    PlayerPrefs.SetInt("DoneWithMinigame", 0);
+                    PlayerPrefs.Save();
+
                     prevStep = curStep;
                 }
                 
                 if (dialogue.IsTextDone() && pantryTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
+                    SceneManager.LoadScene("Pantry");
+                } 
+                if (PlayerPrefs.GetInt("DoneWithMinigame", 0) == 1){
                     curStep = Step.BAKING_MINIGAME;
-                } else if(pantryTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
-                    Debug.Log("pantry triggering me");
+                    PlayerPrefs.SetInt("DoneWithMinigame", 0);
                 }
                 break;
             case Step.BAKING_MINIGAME:

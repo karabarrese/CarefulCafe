@@ -4,8 +4,23 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    public static Movement Instance;
     public float speed;
     public Animator animator;
+
+    private void Awake()
+    {
+        // Ensure only one instance of Player (Movement) exists
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Persist between scenes
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Update()
     {
