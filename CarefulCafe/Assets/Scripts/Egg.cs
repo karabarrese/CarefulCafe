@@ -35,8 +35,8 @@ public class Egg : MonoBehaviour
             dialogueArray.Add(instruction5);
             DialogueComponent instruction6  = new DialogueComponent(CharacterEmotion.None, "For those allergic to dairy products, use almond milk", managerDialogueSprite);
             dialogueArray.Add(instruction6);
-            DialogueComponent instruction6  = new DialogueComponent(CharacterEmotion.None, "For those allergic to nuts, use regular milk and regular flour.", managerDialogueSprite);
-            dialogueArray.Add(instruction6);
+            DialogueComponent instruction7  = new DialogueComponent(CharacterEmotion.None, "For those allergic to nuts, use regular milk and regular flour.", managerDialogueSprite);
+            dialogueArray.Add(instruction7);
             dialogue.UpdateFullDialogue(dialogueArray);
         }
         box1.SetActive(false);
