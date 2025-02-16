@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     // Keep track of step
 
-    public enum Step {NONE, GET_ORDER, ORDER, PANTRY_MINIGAME, MIXING_MINIGAME, BAKING_MINIGAME, WASHING_MINIGAME, GIVE_ORDER, GAME_OVER}
+    public enum Step {NONE, TUTORIAL, GET_ORDER, ORDER, PANTRY_MINIGAME, MIXING_MINIGAME, BAKING_MINIGAME, WASHING_MINIGAME, GIVE_ORDER, GAME_OVER}
     private Step curStep;
     private Step prevStep = Step.NONE;
 
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SinkTriggerHandler sinkTrigger;
 
     private void Start(){
-        curStep = Step.GET_ORDER;
+        curStep = Step.TUTORIAL;
         curCustomerIndex = 0;
     }
 
@@ -51,13 +51,45 @@ public class GameManager : MonoBehaviour
 
     private void Update(){
         switch (curStep){
+            case Step.TUTORIAL:
+                if (prevStep != curStep){
+                    prevStep = curStep;
+                    if(curCustomerIndex == 0){ // manager gives instructions on first playthrough
+                        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();
+
+                        DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.Heart, "Welcome to your first day of work at CarefulCafe! I'm your manager, and you'll be in charge of preparing croissants for 6 customers.", managerDialogueSprite);
+                        dialogueArray.Add(instruction);
+                        DialogueComponent instruction2  = new DialogueComponent(CharacterEmotion.None, "I'll guide you the process for your first customer, but remember to be careful when taking note of everyone's allergies.", managerDialogueSprite);
+                        dialogueArray.Add(instruction2);
+                        DialogueComponent instruction3  = new DialogueComponent(CharacterEmotion.Sweat, "Im case anything does happen, let's review the procedure for using an epipen.", managerDialogueSprite);
+                        dialogueArray.Add(instruction3);
+
+                        dialogue.UpdateFullDialogue(dialogueArray);
+                    }
+                }
+
+                // if (dialogue.IsTextDone()){ // TODO, make user play game
+                //     PlayerPrefs.GetInt("DoneWithMinigame", 0);
+                //     SceneManager.LoadScene("MixingMG"); // TODO: epipen
+                // }
+
+                // if (PlayerPrefs.GetInt("DoneWithMinigame", 0) == 1){
+                //     curStep = Step.GET_ORDER;
+                //     PlayerPrefs.SetInt("DoneWithMinigame", 0);
+                // }
+                if (dialogue.IsTextDone()){
+                    curStep = Step.GET_ORDER;
+                }
+                break;
+
+
             case Step.GET_ORDER:
                 if (prevStep != curStep){
                     prevStep = curStep;
                     if(curCustomerIndex == 0){ // manager gives instructions on first playthrough
                         List<DialogueComponent> dialogueArray = new List<DialogueComponent>();
 
-                        DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Welcome to your first day or work! Begin by walking over to the register area and press 'E' to take your customer's order!", managerDialogueSprite);
+                        DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Let's get started now! Begin by walking over to the register area and press 'E' to take your customer's order!", managerDialogueSprite);
                         dialogueArray.Add(instruction);
                         DialogueComponent allergyInstruction  = new DialogueComponent(CharacterEmotion.None, "Remember to ask about alergies!", managerDialogueSprite);
                         dialogueArray.Add(allergyInstruction);
@@ -78,11 +110,6 @@ public class GameManager : MonoBehaviour
                 
                 if (dialogue.IsTextDone()){ // TODO, make user play game
                     curStep = Step.PANTRY_MINIGAME; // TODO: always go to PANTRY_MINIGAME
-                    // if(curCustomerIndex == 0){ 
-                    //     curStep = Step.PANTRY_MINIGAME;
-                    // } else {
-                    //     curStep = Step.GIVE_ORDER;
-                    // }
                 }
                 break;
             case Step.PANTRY_MINIGAME:
