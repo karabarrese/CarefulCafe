@@ -1,16 +1,48 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections.Generic; 
+using UnityEngine.SceneManagement;
 
 public class BakingBowl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    // variables for baking
     private RectTransform rectTransform;
     private Vector2 offset; 
-    public RectTransform targetArea; 
+    [SerializeField] private RectTransform targetArea; 
+    [SerializeField] private Dialogue dialogue; 
+    [SerializeField] private Sprite managerDialogueSprite;
+    private bool doneBaking = false;
+
+    // variables to animate baking/door
+    [SerializeField] private Image croissant;
+    public Image door;
+    // public float moveDistance = 200f; 
+    // public float moveSpeed = 2f;
+    private Vector3 doorTargetPosition;
 
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
+
+        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+        DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "To bake your croissant, drag and drop your batter into the oven.", managerDialogueSprite);
+        dialogueArray.Add(instruction);
+        DialogueComponent advice  = new DialogueComponent(CharacterEmotion.None, "To avoid cross-contamination, remember to always thoroughly clean baking surfaces and use separate trays or parchment paper.", managerDialogueSprite);
+        dialogueArray.Add(advice);
+        dialogue.UpdateFullDialogue(dialogueArray);
+
+        doorTargetPosition = door.rectTransform.position;
+    }
+
+    void Update()
+    {
+        
+        if (Input.GetKeyDown(KeyCode.E) && doneBaking){
+            PlayerPrefs.SetInt("DoneWithMinigame", 1);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("KitchenScene");
+        } 
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -29,13 +61,23 @@ public class BakingBowl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         if (targetArea != null && RectTransformUtility.RectangleContainsScreenPoint(targetArea, eventData.position))
         {
-            Debug.Log("Dropped inside the target area!");
-            // Handle logic when dropped inside the area
+            if (!doneBaking){
+                doneBaking = true;
+                // TODO: door
+                UpdateWhenBake();
+            }
         }
-        else
-        {
-            Debug.Log("Dropped outside the target area.");
-            // Handle logic when dropped outside
-        }
+    }
+
+    private void UpdateWhenBake()
+    {
+        door.gameObject.SetActive(true);
+        croissant.gameObject.SetActive(true);
+        GetComponent<Image>().enabled = false;
+
+        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+        DialogueComponent goodJob  = new DialogueComponent(CharacterEmotion.Heart, "Good job baking a croissant! Now, press 'E' to return to the kitchen.", managerDialogueSprite);
+        dialogueArray.Add(goodJob);
+        dialogue.UpdateFullDialogue(dialogueArray);
     }
 }
