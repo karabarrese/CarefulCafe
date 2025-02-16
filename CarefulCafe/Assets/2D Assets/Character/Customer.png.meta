@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 29a2d5a82819a402b853b1f6821971fc
+guid: 138687790b99c4c2cbd8a574c6250284
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,33 +123,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cat_movement_0
+      name: Customer_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 209
-        width: 41
-        height: 71
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3f7f1502df1d4686a78ae1a993f6369
-      internalID: 1133049081
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cat_movement_1
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 209
-        width: 41
+        x: 11
+        y: 12
+        width: 40
         height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -158,113 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f370c4d0e297b4c078c79e3a676f5595
-      internalID: 1193248656
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cat_movement_2
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 114
-        width: 41
-        height: 71
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d4e54bca55624506b8cd6370301782e
-      internalID: 359589886
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cat_movement_3
-      rect:
-        serializedVersion: 2
-        x: 73
-        y: 114
-        width: 41
-        height: 72
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 458cd120416094669bfe1fc95d85798f
-      internalID: -186570304
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cat_movement_4
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 10
-        width: 39
-        height: 71
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e97a9174571eb4c40b8fe96007fd7d2e
-      internalID: 1400614475
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cat_movement_5
-      rect:
-        serializedVersion: 2
-        x: 79
-        y: 10
-        width: 39
-        height: 72
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 680c8c68c5f9c4facb685c00792b7f1d
-      internalID: -904635063
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cat_movement_6
-      rect:
-        serializedVersion: 2
-        x: 144
-        y: 10
-        width: 39
-        height: 71
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 08dc19eb0eb564fecb38a2c5735b91d2
-      internalID: -1826752357
+      spriteID: 46d82d4b14af34631b1841a4c9333e3e
+      internalID: 902901628
       vertices: []
       indices: 
       edges: []
@@ -280,13 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      cat_movement_0: 1133049081
-      cat_movement_1: 1193248656
-      cat_movement_2: 359589886
-      cat_movement_3: -186570304
-      cat_movement_4: 1400614475
-      cat_movement_5: -904635063
-      cat_movement_6: -1826752357
+      Customer_0: 902901628
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
