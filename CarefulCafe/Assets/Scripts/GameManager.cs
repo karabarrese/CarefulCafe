@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour
                 if (dialogue.IsTextDone() && pantryTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
                     PlayerPrefs.SetString("CurPlayerAllergy", customers[curCustomerIndex].CusAllergy.ToString());
                     PlayerPrefs.SetInt("curCustomerIndex", curCustomerIndex);
+                    PlayerPrefs.Save();
                     SceneManager.LoadScene("Pantry");
                 } 
                 if (PlayerPrefs.GetInt("DoneWithMinigame", 0) == 1){
@@ -201,6 +202,16 @@ public class GameManager : MonoBehaviour
 
                 if (dialogue.IsTextDone() && sinkTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
                     curStep = Step.GIVE_ORDER_PREP;
+                }
+
+                if (dialogue.IsTextDone() && sinkTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
+                    PlayerPrefs.SetInt("DoneWithMinigame", 0);
+                    PlayerPrefs.Save();
+                    SceneManager.LoadScene("CleaningMG");
+                } 
+                if (PlayerPrefs.GetInt("DoneWithMinigame", 0) == 1){
+                    curStep = Step.GIVE_ORDER_PREP;
+                    PlayerPrefs.SetInt("DoneWithMinigame", 0);
                 }
 
                 break;

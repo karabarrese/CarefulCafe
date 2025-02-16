@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WhiskScript : MonoBehaviour
 {
@@ -75,7 +76,11 @@ public class WhiskScript : MonoBehaviour
         if (collision.gameObject.name == "Dishwasher" && rinsed)
         {
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
             Debug.Log("Game finished!");
+            PlayerPrefs.SetInt("DoneWithMinigame", 1);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("KitchenScene");
         }
     }
 
