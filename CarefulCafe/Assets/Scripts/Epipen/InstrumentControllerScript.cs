@@ -8,6 +8,7 @@ public class InstrumentControllerScript : MonoBehaviour
     public Text instruction;
     public GameObject epipen;
     // public GameObject epipen_idle;
+    public GameObject epipen_idle;
     public GameObject leg;
     public GameObject bar;
     public GameObject arrow;
@@ -17,7 +18,7 @@ public class InstrumentControllerScript : MonoBehaviour
     {
         instruction.text = "Welcome to the epipen mini-game! Please click on the space bar to begin.";
         arrowScript.enabled = false;
-        // epipen_idle.SetActive(true);
+        epipen_idle.SetActive(true);
         epipen.SetActive(false);
         bar.SetActive(false);
         leg.SetActive(false);
@@ -42,7 +43,7 @@ public class InstrumentControllerScript : MonoBehaviour
         instruction.text = "Step 2: Position orange end about 10 cm away from outer mid-thigh";
         Debug.Log("Step 2: Position orange end about 10 cm away from outer mid-thigh");
         arrow.SetActive(true);
-        // epipen_idle.SetActive(false);
+        epipen_idle.SetActive(false);
         leg.SetActive(true);
         bar.SetActive(true);
         arrowScript.enabled = true;
