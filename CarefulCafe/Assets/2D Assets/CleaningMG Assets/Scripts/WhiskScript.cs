@@ -38,7 +38,7 @@ public class WhiskScript : MonoBehaviour
 
     private void OnMouseUp() 
     {
-        if (bubbleCovered == false || rinsed == false)
+        if (bubbleCovered == false && rinsed == false)
         {
             transform.position = new Vector2(defaultX, defaultY); // snap to original position
         }
@@ -58,7 +58,11 @@ public class WhiskScript : MonoBehaviour
         animator.SetBool("SpongeHover", spongeHover);
         animator.SetBool("Clean", bubbleCovered);
         bubbleCovered = BubbleSpawner.maxBubblesReached;
-        Debug.Log(bubbleCovered);
+        rinsed = BubbleSpawner.bubblesGone;
+        if (rinsed)
+        {
+            Debug.Log("rinsed");
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -66,7 +70,13 @@ public class WhiskScript : MonoBehaviour
         { // if sponge touches whisk and the sponge has soap on it
             spongeHover = true;
             // Debug.Log("Hovering over sponge.");
-        } 
+        }
+        // Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.name == "Dishwasher" && rinsed)
+        {
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            Debug.Log("Game finished!");
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

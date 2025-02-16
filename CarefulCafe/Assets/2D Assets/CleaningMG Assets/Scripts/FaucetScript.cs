@@ -5,6 +5,8 @@ using UnityEngine;
 public class FaucetScript : MonoBehaviour
 {
     public bool faucetPress;
+    public Animator animator;
+    [SerializeField] private BubbleSpawnerScript BubbleSpawnerScript;
 
     // Start is called before the first frame update
     void Start()
@@ -15,12 +17,19 @@ public class FaucetScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        animator.SetBool("FaucetPress", faucetPress);
     }
     private void OnMouseDown()
     {
         //capture mouse position offset
         faucetPress = true;
-        Debug.Log("Sink on.");
+        BubbleSpawnerScript.dissolveBubbles();
+        // Debug.Log("Sink on.");
+    }
+
+    private void OnMouseUp()
+    {
+        //capture mouse position offset
+        faucetPress = false;
     }
 }
