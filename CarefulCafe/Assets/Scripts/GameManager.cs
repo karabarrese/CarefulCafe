@@ -201,10 +201,6 @@ public class GameManager : MonoBehaviour
                 }
 
                 if (dialogue.IsTextDone() && sinkTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
-                    curStep = Step.GIVE_ORDER_PREP;
-                }
-
-                if (dialogue.IsTextDone() && sinkTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
                     PlayerPrefs.SetInt("DoneWithMinigame", 0);
                     PlayerPrefs.Save();
                     SceneManager.LoadScene("CleaningMG");
