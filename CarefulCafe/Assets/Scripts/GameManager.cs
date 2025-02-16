@@ -9,14 +9,14 @@ public class GameManager : MonoBehaviour
     public int score = 0; // TODO: customers served? money made? badge?
     [SerializeField] private List<CustomerInfo> customers;
     private int curCustomerIndex = 0;
+    [SerializeField] private Sprite managerDialogueSprite;
     [SerializeField] private Sprite playerDialogueSprite;
-   
 
     // Keep track of step
 
-    public enum Step {GET_ORDER, ORDER, PANTRY_MINIGAME, BAKING_MINIGAME, WASHING_MINIGAME, GIVE_ORDER, GAME_OVER}
+    public enum Step {NONE, GET_ORDER, ORDER, PANTRY_MINIGAME, BAKING_MINIGAME, WASHING_MINIGAME, GIVE_ORDER, GAME_OVER}
     private Step curStep;
-    private Step prevStep;
+    private Step prevStep = Step.NONE;
 
     // Variables for scene
     [SerializeField] private GameObject player;
@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void Start(){
         curStep = Step.GET_ORDER;
+        curCustomerIndex = 0;
     }
 
     private void Awake()
@@ -47,7 +48,20 @@ public class GameManager : MonoBehaviour
     private void Update(){
         switch (curStep){
             case Step.GET_ORDER:
-                prevStep = curStep;
+                if (prevStep != curStep){
+                    prevStep = curStep;
+                    if(curCustomerIndex == 0){ // manager gives instructions on first playthrough
+                        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();
+
+                        DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Welcome to your first day or work! Begin by walking over to the register area and press 'E' to take your customer's order!", managerDialogueSprite);
+                        dialogueArray.Add(instruction);
+                        DialogueComponent allergyInstruction  = new DialogueComponent(CharacterEmotion.None, "Remember to ask about alergies!", managerDialogueSprite);
+                        dialogueArray.Add(allergyInstruction);
+
+                        dialogue.UpdateFullDialogue(dialogueArray);
+                    }
+                }
+                
                 if(orderTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
                     curStep = Step.ORDER;
                 }
@@ -58,22 +72,28 @@ public class GameManager : MonoBehaviour
                     prevStep = curStep;
                 }
                 
-                if (dialogue.IsTextDone()){
-                    curStep = Step.GIVE_ORDER; // for testing
-                    // curStep = Step.PANTRY_MINIGAME; // TODO
+                if (dialogue.IsTextDone()){ // TODO, make user play game
+                    // curStep = Step.PANTRY_MINIGAME; // TODO: always go to PANTRY_MINIGAME
+                    if(curCustomerIndex == 0){ 
+                        curStep = Step.PANTRY_MINIGAME;
+                    } else {
+                        curStep = Step.GIVE_ORDER;
+                    }
                 }
+
+                
 
                 break;
             case Step.PANTRY_MINIGAME:
                 if(curStep != prevStep){
-                    // TODO: add glow effect, track if 1st round for tutorial
-
-                    // to test dialogue, TODO: update to match behavior
-                    dialogue.SetCurEmotion(CharacterEmotion.Sweat);
-                    string[] nextText = new string[] {"You are now about to play the pantry minigame, so let's pretend this is useful advice", "Good luck!"};
-                    if (dialogue != null){
-                        dialogue.UpdateText(nextText);
+                    // TODO: add glow effect, add collider
+                    if(curCustomerIndex == 0){ // manager gives instructions on first playthrough
+                        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+                        DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Good job taking that order! Now head over to the pantry and click 'E' to get the ingredients you need!", managerDialogueSprite);
+                        dialogueArray.Add(instruction);
+                        dialogue.UpdateFullDialogue(dialogueArray);
                     }
+
                     prevStep = curStep;
                 }
                 
@@ -82,17 +102,14 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case Step.BAKING_MINIGAME:
-                // TODO: remove, used to test customers
                 if(curStep != prevStep){
-                    dialogue.SetCurEmotion(CharacterEmotion.Heart);
-                    string customerText = $"Hi {customers[curCustomerIndex].Name}, you have {customers[curCustomerIndex].CusAllergy}";
-                    string[] nextText = new string[] { customerText, "yay" };
-
-                    if (dialogue != null){
-                        dialogue.UpdateText(nextText);
+                    if(curCustomerIndex == 0){ // manager gives instructions on first playthrough
+                        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+                        DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Next, head over to the oven to bake your croissant!", managerDialogueSprite);
+                        dialogueArray.Add(instruction);
+                        dialogue.UpdateFullDialogue(dialogueArray);
                     }
                     prevStep = curStep;
-                    curCustomerIndex++;
                 }
 
                 if (dialogue.IsTextDone()){
@@ -101,16 +118,41 @@ public class GameManager : MonoBehaviour
                 
                 break;
             case Step.WASHING_MINIGAME:
+                if(curStep != prevStep){
+                    if(curCustomerIndex == 0){ // manager gives instructions on first playthrough
+                        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+                        DialogueComponent goodJob  = new DialogueComponent(CharacterEmotion.Heart, "Good job at successfully baking a croissant!", managerDialogueSprite);
+                        dialogueArray.Add(goodJob);
+                        DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Now, head over to the sink and press 'E' to wash you dishes to avoid cross-contamination in the future!", managerDialogueSprite);
+                        dialogueArray.Add(instruction);
+                        dialogue.UpdateFullDialogue(dialogueArray);
+                    }
+                    prevStep = curStep;
+                }
+
+                if (dialogue.IsTextDone()){
+                    curStep = Step.GIVE_ORDER;
+                }
+
                 break;
             case Step.GIVE_ORDER:
                 if (curStep != prevStep){ // TODO: actually give order
-                    prevStep = curStep;
+                     if(curCustomerIndex == 0){ // manager gives instructions on first playthrough
+                        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+                        DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.Heart, "Great! Now, head over to the cash register to give your customer their croissant, and repeat the process for all customers!", managerDialogueSprite);
+                        dialogueArray.Add(instruction);
+                        dialogue.UpdateFullDialogue(dialogueArray);
+                    }
+
                     if (curCustomerIndex == customers.Count - 1){
                         curStep = Step.GAME_OVER;
                     } else{
                         curCustomerIndex++;
                         curStep = Step.GET_ORDER;
                     }
+
+                    prevStep = curStep;
+                    
                 }
                 break;
                 
