@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
 {
     // Game manager variables
     public static GameManager Instance;
-    public int score = 0; // TODO: customers served? money made? badge?
     [SerializeField] private List<CustomerInfo> customers;
     private int curCustomerIndex = 0;
     [SerializeField] private Sprite managerDialogueSprite;
@@ -14,8 +13,8 @@ public class GameManager : MonoBehaviour
 
     // Keep track of step
 
-    public enum Step {NONE, TUTORIAL, GET_ORDER, ORDER, PANTRY_MINIGAME, MIXING_MINIGAME, BAKING_MINIGAME, WASHING_MINIGAME, GIVE_ORDER, GAME_OVER}
-    private Step curStep;
+    public enum Step {NONE, TUTORIAL, GET_ORDER, ORDER, PANTRY_MINIGAME, MIXING_MINIGAME, BAKING_MINIGAME, WASHING_MINIGAME, GIVE_ORDER_PREP, GIVE_ORDER, GAME_OVER}
+    [SerializeField] private Step curStep;
     private Step prevStep = Step.NONE;
     private bool doneIntro = false;
 
@@ -201,12 +200,12 @@ public class GameManager : MonoBehaviour
                 }
 
                 if (dialogue.IsTextDone() && sinkTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
-                    curStep = Step.GIVE_ORDER;
+                    curStep = Step.GIVE_ORDER_PREP;
                 }
 
                 break;
-            case Step.GIVE_ORDER:
-                if (curStep != prevStep){ // TODO: actually give order
+            case Step.GIVE_ORDER_PREP:
+                if (curStep != prevStep){
                     dialogue.HideTextBox();
                      if(curCustomerIndex == 0){ // manager gives instructions on first playthrough
                         List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
@@ -215,15 +214,32 @@ public class GameManager : MonoBehaviour
                         dialogue.UpdateFullDialogue(dialogueArray);
                     }
 
+                    prevStep = curStep;
+                }
+
+                if(orderTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
+                    curStep = Step.GIVE_ORDER;
+                }
+                break;
+            case Step.GIVE_ORDER:
+                if(curStep != prevStep){
+                    List<DialogueComponent> dialogueArray = new List<DialogueComponent>();
+                    DialogueComponent giveCroissantDC = new DialogueComponent(CharacterEmotion.None, $"Thanks for the wait {customers[curCustomerIndex].Name}! Here's your croissant!", playerDialogueSprite);
+                    dialogueArray.Add(giveCroissantDC);
+                    DialogueComponent acceptCroissantDC = new DialogueComponent(CharacterEmotion.Heart, "Thank you! This is perfect!", customers[curCustomerIndex].TextImg);
+                    dialogueArray.Add(acceptCroissantDC);
+                    dialogue.UpdateFullDialogue(dialogueArray);
+
+                    prevStep = curStep;
+                }
+
+                if (dialogue.IsTextDone()){
                     if (curCustomerIndex == customers.Count - 1){
                         curStep = Step.GAME_OVER;
                     } else{
                         curCustomerIndex++;
                         curStep = Step.GET_ORDER;
                     }
-
-                    prevStep = curStep;
-                    
                 }
                 break;
                 
