@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class almondScript : MonoBehaviour
+public class fake_egg : MonoBehaviour
 {
     public uiManager uiManagerScript; 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +16,9 @@ public class almondScript : MonoBehaviour
     {
         
     }
-    
+
     void OnMouseDown()
     {
-        uiManagerScript.openAlmondUI(); // Calls the UI function
+        uiManagerScript.openEggUI(); // Calls the UI function
     }
 }
-
