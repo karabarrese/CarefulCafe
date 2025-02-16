@@ -8,16 +8,12 @@ public class bowl : MonoBehaviour
 
     public GameObject crackedEgg;
     public GameObject rawEgg;
+    public uiManager ui;
     private bool eggActive = true;
 
     private void OnTriggerStay2D(Collider2D other)
     {
        if (other.CompareTag("Respawn"))
-        {
-            Debug.Log("Egg is in the bowl and has respawned!");
-            eggActive = false;
-        }
-        if (other.CompareTag("Respawn"))
         {
             Debug.Log("Egg is in the bowl and has respawned!");
             eggActive = false;
@@ -46,5 +42,7 @@ public class bowl : MonoBehaviour
         yield return new WaitForSeconds(1);
         crackedEgg.SetActive(false);
         rawEgg.SetActive(true);
+        ui.numIngredients++;
+        ui.eggIn = true;
     }
 }

@@ -14,10 +14,25 @@ public class Egg : MonoBehaviour
     public string allergy;
     [SerializeField] private Dialogue dialogue;
     [SerializeField] private Sprite managerDialogueSprite;
+    public int customerCount;
 
     // Start is called before the first frame update
     void Start()
     {
+        customerCount = PlayerPrefs.GetInt("curCustomerIndex",-1);
+        if (customerCount==0)
+        {
+            List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+            DialogueComponent instruction1  = new DialogueComponent(CharacterEmotion.None, "Here's where we make our signature kitten kroissant dough (tm)! Make sure to add a form of eggs, flour, and milk to create it. ", managerDialogueSprite);
+            dialogueArray.Add(instruction1);
+            DialogueComponent instruction2  = new DialogueComponent(CharacterEmotion.None, "It's also very important to keep ingredients that may cause reactions to different people in sealed containers and be very cautious when reading ingredient labels", managerDialogueSprite);
+            dialogueArray.Add(instruction2);
+            DialogueComponent instruction3  = new DialogueComponent(CharacterEmotion.None, "When reading, even things like 'made in a factory that contains traces of peanuts' could be detrimental to someone's health. To protect against cross contamination, we have these sealed containers.", managerDialogueSprite);
+            dialogueArray.Add(instruction3);
+            DialogueComponent instruction4  = new DialogueComponent(CharacterEmotion.None, "When reading, even things like 'made in a factory that contains traces of peanuts' could be detrimental to someone's health. To protect against cross contamination, we have these sealed containers.", managerDialogueSprite);
+            dialogueArray.Add(instruction4);
+            dialogue.UpdateFullDialogue(dialogueArray);
+        }
         box1.SetActive(false);
         box2.SetActive(false);
         egg1.SetActive(false);
@@ -33,6 +48,7 @@ public class Egg : MonoBehaviour
             hasAllergy = false;
         }
         gameObject.SetActive(true);
+        hasAllergy = true;
     }
 
     // Update is called once per frame
