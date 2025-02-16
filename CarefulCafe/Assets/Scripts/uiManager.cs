@@ -86,6 +86,7 @@ public class uiManager : MonoBehaviour
                 PlayerPrefs.Save();
                 SceneManager.LoadScene("KitchenScene");
             } 
+            numIngredients++;
         }
         Debug.Log(PlayerPrefs.GetString("CurPlayerAllergy", "you failed"));
     }
@@ -226,7 +227,11 @@ public class uiManager : MonoBehaviour
                 break;
 
             default:
-                ShowDialogue("No ingredient selected!");
+                // //ShowDialogue("No ingredient selected!");
+                // List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+                // DialogueComponent instruction10 = new DialogueComponent(CharacterEmotion.None, "No ingredient selected!", managerDialogueSprite);
+                // dialogueArray.Add(instruction10);
+                // dialogue.UpdateFullDialogue(dialogueArray);
                 closeUI();
                 break;
         }
