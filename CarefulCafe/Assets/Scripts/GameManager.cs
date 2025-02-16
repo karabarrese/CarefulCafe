@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic; 
 
-public class UIManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     // Game manager variables
     public static GameManager Instance { get; private set; }

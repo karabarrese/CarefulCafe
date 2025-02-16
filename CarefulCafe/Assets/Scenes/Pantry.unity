@@ -533,7 +533,6 @@ GameObject:
   - component: {fileID: 423197372}
   - component: {fileID: 423197376}
   - component: {fileID: 423197375}
-  - component: {fileID: 423197374}
   - component: {fileID: 423197373}
   m_Layer: 0
   m_Name: AlmondFlour
@@ -570,25 +569,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManagerScript: {fileID: 1137153053}
---- !u!114 &423197374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 423197371}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 357a8288f8d124770a76710099381d3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiManagerScript: {fileID: 0}
-  egg1: {fileID: 0}
-  egg2: {fileID: 0}
-  egg3: {fileID: 0}
-  box1: {fileID: 0}
-  box2: {fileID: 0}
-  yes: 1
 --- !u!61 &423197375
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1062,7 +1042,6 @@ GameObject:
   - component: {fileID: 630649747}
   - component: {fileID: 630649746}
   - component: {fileID: 630649745}
-  - component: {fileID: 630649744}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1070,18 +1049,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &630649744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630649743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4d84495c10af421bb6a0f43ca0904c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &630649745
 MonoBehaviour:
   m_ObjectHideFlags: 0
