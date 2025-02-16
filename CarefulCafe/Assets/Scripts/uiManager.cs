@@ -75,22 +75,31 @@ public class uiManager : MonoBehaviour
     {
         if (numIngredients==3)
         {
-            // have person say good job now let's go back 
-            List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-            DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Good job! You got all the ingredients. Click 'E' to go back to the kitchen", managerDialogueSprite);
-            dialogueArray.Add(instruction);
-            dialogue.UpdateFullDialogue(dialogueArray);
-            //going back to kitchen
-            if (Input.GetKeyDown(KeyCode.E)){
-                PlayerPrefs.SetInt("DoneWithMinigame", 1);
-                PlayerPrefs.Save();
-                SceneManager.LoadScene("KitchenScene");
-            } 
-            numIngredients++;
+            end();
         }
+        Debug.Log(numIngredients);
+        if (Input.GetKeyDown(KeyCode.E)&&numIngredients>=3){
+            PlayerPrefs.SetInt("DoneWithMinigame", 1);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("KitchenScene");
+        } 
         Debug.Log(PlayerPrefs.GetString("CurPlayerAllergy", "you failed"));
     }
-    
+    private void end()
+    {
+        numIngredients++;
+        // have person say good job now let's go back 
+        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+        DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Good job! You got all the ingredients. Click 'E' to go back to the kitchen", managerDialogueSprite);
+        dialogueArray.Add(instruction);
+        dialogue.UpdateFullDialogue(dialogueArray);
+        //going back to kitchen
+        if (Input.GetKeyDown(KeyCode.E)){
+            PlayerPrefs.SetInt("DoneWithMinigame", 1);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("KitchenScene");
+        } 
+    }    
     public void clickAdd()
     {
         //switch case, 1 = almond flour, 2 = flour, 3 = milk, 4 = almond milk, 5 = not egg
@@ -99,11 +108,7 @@ public class uiManager : MonoBehaviour
             case 1: // Almond Flour
                 if (flourIn)
                 {
-                    List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-                    DialogueComponent instruction1  = new DialogueComponent(CharacterEmotion.None, "That's a bit too much flour", managerDialogueSprite);
-                    dialogueArray.Add(instruction1);
-                    dialogue.UpdateFullDialogue(dialogueArray);
-                    //ShowDialogue("That's a bit too much flour");
+                    ShowDialogue("That's a bit too much flour");
                 }
                 else if (glutenAllergy)
                 {
@@ -113,11 +118,7 @@ public class uiManager : MonoBehaviour
                 }
                 else
                 {
-                    //ShowDialogue("Oops, let's save that for those who need it!");
-                    List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-                    DialogueComponent instruction2  = new DialogueComponent(CharacterEmotion.None, "Oops, let's save that for those who need it!", managerDialogueSprite);
-                    dialogueArray.Add(instruction2);
-                    dialogue.UpdateFullDialogue(dialogueArray);
+                    ShowDialogue("Oops, we don't want to add the almond flour to this recipe to save it for those who need it!");
                 }
                 closeUI();
                 break;
@@ -125,11 +126,7 @@ public class uiManager : MonoBehaviour
             case 2: // Regular Flour
                 if (flourIn)
                 {
-                    //ShowDialogue("That's a bit too much flour");
-                    List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-                    DialogueComponent instruction3  = new DialogueComponent(CharacterEmotion.None, "That's a bit too much flour", managerDialogueSprite);
-                    dialogueArray.Add(instruction3);
-                    dialogue.UpdateFullDialogue(dialogueArray);
+                    ShowDialogue("That's a bit too much flour");
                 }
                 else if (!glutenAllergy)
                 {
@@ -139,11 +136,7 @@ public class uiManager : MonoBehaviour
                 }
                 else
                 {
-                    //ShowDialogue("Oops, we don't want to add the wheat flour to this recipe because our customer is allergic to gluten!");
-                    List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-                    DialogueComponent instruction4  = new DialogueComponent(CharacterEmotion.None, "Oops, make sure not to add wheat flour to this recipe because our customer is allergic to gluten!", managerDialogueSprite);
-                    dialogueArray.Add(instruction4);
-                    dialogue.UpdateFullDialogue(dialogueArray);
+                    ShowDialogue("Oops, we don't want to add the wheat flour to this recipe because our customer is allergic to gluten!");
                 }
                 closeUI();
                 break;
@@ -151,11 +144,7 @@ public class uiManager : MonoBehaviour
             case 3: // Regular Milk
                 if (milkIn)
                 {
-                    //ShowDialogue("That's a bit too much milk");
-                    List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-                    DialogueComponent instruction5  = new DialogueComponent(CharacterEmotion.None, "Got Milk? Too much!", managerDialogueSprite);
-                    dialogueArray.Add(instruction5);
-                    dialogue.UpdateFullDialogue(dialogueArray);
+                    ShowDialogue("That's a bit too much milk");
                 }
                 else if (!dairyAllergy)
                 {
@@ -165,11 +154,7 @@ public class uiManager : MonoBehaviour
                 }
                 else
                 {
-                    //ShowDialogue("Oops, we don't want to add the regular milk to this recipe because our customer is allergic to dairy!");
-                    List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-                    DialogueComponent instruction6  = new DialogueComponent(CharacterEmotion.None, "A dairy allergy means you can't put regular milk in, try almond milk", managerDialogueSprite);
-                    dialogueArray.Add(instruction6);
-                    dialogue.UpdateFullDialogue(dialogueArray);
+                    ShowDialogue("Oops, we don't want to add the regular milk to this recipe because our customer is allergic to dairy!");
                 }
                 closeUI();
                 break;
@@ -177,11 +162,7 @@ public class uiManager : MonoBehaviour
             case 4: // Almond Milk
                 if (milkIn)
                 {
-                    //ShowDialogue("That's a bit too much milk");
-                    List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-                    DialogueComponent instruction7 = new DialogueComponent(CharacterEmotion.None, "Got Milk? Too much!", managerDialogueSprite);
-                    dialogueArray.Add(instruction7);
-                    dialogue.UpdateFullDialogue(dialogueArray);
+                    ShowDialogue("That's a bit too much milk");
                 }
                 else if (dairyAllergy)
                 {
@@ -191,11 +172,7 @@ public class uiManager : MonoBehaviour
                 }
                 else
                 {
-                    //ShowDialogue("Oops, we don't want to add the almond milk to this recipe to save it for those who need it!");
-                    List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-                    DialogueComponent instruction8 = new DialogueComponent(CharacterEmotion.None, "Oops, we don't want to add the almond milk to this recipe to save it for those who need it!", managerDialogueSprite);
-                    dialogueArray.Add(instruction8);
-                    dialogue.UpdateFullDialogue(dialogueArray);
+                    ShowDialogue("Oops, we don't want to add the almond milk to this recipe to save it for those who need it!");
                 }
                 closeUI();
                 break;
@@ -203,11 +180,7 @@ public class uiManager : MonoBehaviour
             case 5: // Egg Substitute
                 if (eggIn)
                 {
-                    //ShowDialogue("That's a bit too much egg substitute");
-                    List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-                    DialogueComponent instruction8 = new DialogueComponent(CharacterEmotion.None, "That's a bit too much egg substitute", managerDialogueSprite);
-                    dialogueArray.Add(instruction8);
-                    dialogue.UpdateFullDialogue(dialogueArray);
+                    ShowDialogue("That's a bit too much egg substitute");
                 }
                 else if (eggAllergy)
                 {
@@ -217,21 +190,13 @@ public class uiManager : MonoBehaviour
                 }
                 else
                 {
-                    //ShowDialogue("Oops, let's save the imitation egg for those with allergies");
-                    List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-                    DialogueComponent instruction9 = new DialogueComponent(CharacterEmotion.None, "Oops, let's save the imitation egg for those with allergies", managerDialogueSprite);
-                    dialogueArray.Add(instruction9);
-                    dialogue.UpdateFullDialogue(dialogueArray);
+                    ShowDialogue("Oops, let's save the imitation egg for those with allergies");
                 }
                 closeUI();
                 break;
 
             default:
-                // //ShowDialogue("No ingredient selected!");
-                // List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-                // DialogueComponent instruction10 = new DialogueComponent(CharacterEmotion.None, "No ingredient selected!", managerDialogueSprite);
-                // dialogueArray.Add(instruction10);
-                // dialogue.UpdateFullDialogue(dialogueArray);
+                ShowDialogue("No ingredient selected!");
                 closeUI();
                 break;
         }
@@ -285,6 +250,13 @@ public class uiManager : MonoBehaviour
         Add.SetActive(true);
         whatIngredient = 3;
         backToCabinet.SetActive(true);
+    }
+    private void ShowDialogue(string message)
+    {
+        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();
+        DialogueComponent instruction = new DialogueComponent(CharacterEmotion.None, message, managerDialogueSprite);
+        dialogueArray.Add(instruction);
+        dialogue.UpdateFullDialogue(dialogueArray);
     }
 }
 
