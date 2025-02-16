@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic; 
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class BakingBowl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -72,12 +73,21 @@ public class BakingBowl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private void UpdateWhenBake()
     {
         door.gameObject.SetActive(true);
+        StartCoroutine(DelayedAction());
+    }
+
+    private IEnumerator DelayedAction()
+    {
+        // Wait for 3 seconds before showing croissant/text box
+        yield return new WaitForSeconds(3f);
+
         croissant.gameObject.SetActive(true);
         GetComponent<Image>().enabled = false;
 
-        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
-        DialogueComponent goodJob  = new DialogueComponent(CharacterEmotion.Heart, "Good job baking a croissant! Now, press 'E' to return to the kitchen.", managerDialogueSprite);
+        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();
+        DialogueComponent goodJob = new DialogueComponent(CharacterEmotion.Heart, "Good job baking a croissant! Now, press 'E' to return to the kitchen.", managerDialogueSprite);
         dialogueArray.Add(goodJob);
         dialogue.UpdateFullDialogue(dialogueArray);
     }
+
 }
