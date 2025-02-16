@@ -10,9 +10,19 @@ public class SpongeScript : MonoBehaviour
     public float defaultX;
     public float defaultY;
 
+    // dialogue
+    [SerializeField] private Dialogue dialogue;
+    [SerializeField] private Sprite managerDialogueSprite;
+    private bool noBubblesPromptYet = true;
+
     // Start is called before the first frame update
     void Start()
     {
+        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+        DialogueComponent goodJob  = new DialogueComponent(CharacterEmotion.None, "Drag the soap bottle over to the sponge to add soap to it.", managerDialogueSprite);
+        dialogueArray.Add(goodJob);
+        dialogue.UpdateFullDialogue(dialogueArray);
+
         animator.SetBool("Soaped", false);
     }
 
@@ -27,6 +37,14 @@ public class SpongeScript : MonoBehaviour
         if (collision.gameObject.name == "Soap Bottle")
         {
             soaped = true;
+
+            if (noBubblesPromptYet){
+                noBubblesPromptYet = false;
+                List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+                DialogueComponent goodJob  = new DialogueComponent(CharacterEmotion.None, "Scrub the whisk with the sponge.", managerDialogueSprite);
+                dialogueArray.Add(goodJob);
+                dialogue.UpdateFullDialogue(dialogueArray);
+            }
             // Debug.Log("soaped");
         }
     }

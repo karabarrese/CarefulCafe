@@ -16,8 +16,12 @@ public class WhiskScript : MonoBehaviour
 
     public bool bubbleCovered;
     public bool rinsed;
+    public bool noRinsePromptYet = true;
+    public bool noRinsePromptYet2 = true;
     [SerializeField] private SpongeScript Sponge;
     [SerializeField] private BubbleSpawnerScript BubbleSpawner;
+    [SerializeField] private Dialogue dialogue;
+    [SerializeField] private Sprite managerDialogueSprite;
 
     private Vector3 GetMouseWorldPosition()
     {
@@ -60,9 +64,14 @@ public class WhiskScript : MonoBehaviour
         animator.SetBool("Clean", bubbleCovered);
         bubbleCovered = BubbleSpawner.maxBubblesReached;
         rinsed = BubbleSpawner.bubblesGone;
-        if (rinsed)
+        if (rinsed && noRinsePromptYet)
         {
             Debug.Log("rinsed");
+            noRinsePromptYet = false;
+            List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+            DialogueComponent goodJob  = new DialogueComponent(CharacterEmotion.None, "Drag the whisk over to the dishwasher to clean it twice.", managerDialogueSprite);
+            dialogueArray.Add(goodJob);
+            dialogue.UpdateFullDialogue(dialogueArray);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -97,6 +106,14 @@ public class WhiskScript : MonoBehaviour
         if (bubbleCovered == true)
         {
             spongeHover = false;
+
+            if(noRinsePromptYet2){
+                noRinsePromptYet2 = false;
+                List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+                DialogueComponent goodJob  = new DialogueComponent(CharacterEmotion.None, "Turn on the faucet to rinse the soap off", managerDialogueSprite);
+                dialogueArray.Add(goodJob);
+                dialogue.UpdateFullDialogue(dialogueArray);
+            } 
         }
         spongeHoverStay = false;
     }
