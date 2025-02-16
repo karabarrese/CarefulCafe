@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
 
     // Colliders  for different steps
     [SerializeField] private OrderTriggerHandler orderTrigger;
+    [SerializeField] private CounterTriggerHandler counterTrigger;
+    [SerializeField] private OvenTriggerHandler ovenTrigger;
+    [SerializeField] private PantryTriggerHandler pantryTrigger;
+    [SerializeField] private SinkTriggerHandler sinkTrigger;
 
     private void Start(){
         curStep = Step.GET_ORDER;
@@ -97,8 +101,10 @@ public class GameManager : MonoBehaviour
                     prevStep = curStep;
                 }
                 
-                if (dialogue.IsTextDone()){
+                if (dialogue.IsTextDone() && pantryTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
                     curStep = Step.BAKING_MINIGAME;
+                } else if(pantryTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
+                    Debug.Log("pantry triggering me");
                 }
                 break;
             case Step.BAKING_MINIGAME:
@@ -112,7 +118,7 @@ public class GameManager : MonoBehaviour
                     prevStep = curStep;
                 }
 
-                if (dialogue.IsTextDone()){
+                if (dialogue.IsTextDone() && ovenTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
                     curStep = Step.WASHING_MINIGAME;
                 }
                 
@@ -130,7 +136,7 @@ public class GameManager : MonoBehaviour
                     prevStep = curStep;
                 }
 
-                if (dialogue.IsTextDone()){
+                if (dialogue.IsTextDone() && sinkTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
                     curStep = Step.GIVE_ORDER;
                 }
 
