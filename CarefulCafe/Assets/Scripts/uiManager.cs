@@ -25,11 +25,6 @@ public class uiManager : MonoBehaviour
     [SerializeField] private Dialogue dialogue;
     [SerializeField] private Sprite managerDialogueSprite;
 
-
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -53,8 +48,7 @@ public class uiManager : MonoBehaviour
         else if (allergy == "Egg")
         {
             eggAllergy = true;
-        }
-        
+        }        
     }
 
 
@@ -91,8 +85,19 @@ public class uiManager : MonoBehaviour
 
     public void eggClick()
     {
-        eggMixture.SetActive(true);
-        closeUI();
+        if(!eggAllergy)
+        {
+            eggMixture.SetActive(true);
+            closeUI();
+        }
+        else
+        {
+            List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+            DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Oops, we don't want to add the eggs to this recipe because our customer is allergic to gluten!", managerDialogueSprite);
+            dialogueArray.Add(instruction);
+            dialogue.UpdateFullDialogue(dialogueArray);
+            closeUI();
+        }
     }
 
     public void closeUI()

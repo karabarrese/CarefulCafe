@@ -10,7 +10,10 @@ public class Egg : MonoBehaviour
     public GameObject egg3;
     public GameObject box1;
     public GameObject box2;
-    public bool yes = true;
+    public bool hasAllergy;
+    public string allergy;
+    [SerializeField] private Dialogue dialogue;
+    [SerializeField] private Sprite managerDialogueSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +23,16 @@ public class Egg : MonoBehaviour
         egg1.SetActive(false);
         egg2.SetActive(false);
         egg3.SetActive(false);
-        yes = true;
+        allergy = PlayerPrefs.GetString("CurPlayerAllergy");
+        if(allergy == "egg")
+        {
+            hasAllergy = true;
+        }
+        else
+        {
+            hasAllergy = false;
+        }
         gameObject.SetActive(true);
-
     }
 
     // Update is called once per frame
@@ -33,16 +43,24 @@ public class Egg : MonoBehaviour
     
     void OnMouseDown()
     {
-        if (yes)
+        if (hasAllergy)
         {
-        box1.SetActive(true);
-        box2.SetActive(true);
-        egg1.SetActive(true);
-        egg2.SetActive(true);
-        egg3.SetActive(true);
-        yes = false;
+            List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+            DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Oops, we don't want to add the eggs to this recipe because our customer is allergic to them!", managerDialogueSprite);
+            dialogueArray.Add(instruction);
+            dialogue.UpdateFullDialogue(dialogueArray);
         }
-        gameObject.SetActive(false);
+        else
+        {
+            box1.SetActive(true);
+            box2.SetActive(true);
+            egg1.SetActive(true);
+            egg2.SetActive(true);
+            egg3.SetActive(true);
+            gameObject.SetActive(false);
+            
+        }
+        
         //uiManagerScript.openEggUI(); // Calls the UI function
     }
 }
