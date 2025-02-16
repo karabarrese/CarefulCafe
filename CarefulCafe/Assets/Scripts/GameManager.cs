@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
                 }
                 
                 if (dialogue.IsTextDone() && pantryTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
+                    PlayerPrefs.SetString("CurPlayerAllergy", customers[curCustomerIndex].CusAllergy.ToString());
                     SceneManager.LoadScene("Pantry");
                 } 
                 if (PlayerPrefs.GetInt("DoneWithMinigame", 0) == 1){

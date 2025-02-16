@@ -20,6 +20,14 @@ public class uiManager : MonoBehaviour
     public bool glutenAllergy;
     public bool dairyAllergy;
     public bool eggAllergy;
+    public string allergy;
+
+    [SerializeField] private Dialogue dialogue;
+    [SerializeField] private Sprite managerDialogueSprite;
+
+
+
+
 
 
     // Start is called before the first frame update
@@ -28,9 +36,25 @@ public class uiManager : MonoBehaviour
         closeUI();
         flourMixture.SetActive(false);
         eggMixture.SetActive(false);
-
+        dairyAllergy = false;
+        eggAllergy = false;
+        glutenAllergy = false;
         //testing glutenAllergy
-        glutenAllergy = true;
+        allergy = PlayerPrefs.GetString("CurPlayerAllergy");
+        //allergies: "None, Dairy, Gluten, Egg"
+        if (allergy == "Dairy")
+        {
+            dairyAllergy = true;
+        }
+        else if (allergy == "Gluten")
+        {
+            glutenAllergy = true;
+        }
+        else if (allergy == "Egg")
+        {
+            eggAllergy = true;
+        }
+        
     }
 
 
@@ -43,6 +67,8 @@ public class uiManager : MonoBehaviour
             PlayerPrefs.Save();
             SceneManager.LoadScene("KitchenScene");
         } 
+
+        Debug.Log(PlayerPrefs.GetString("CurPlayerAllergy", "you failed"));
     }
     
     public void flourClick()
