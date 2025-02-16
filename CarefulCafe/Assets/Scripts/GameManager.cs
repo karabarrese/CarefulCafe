@@ -23,8 +23,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Dialogue dialogue;
     [SerializeField] private CursorChanger cursorChanger;
 
+    // Colliders  for different steps
+    [SerializeField] private OrderTriggerHandler orderTrigger;
+
     private void Start(){
-        curStep = Step.ORDER;
+        curStep = Step.GET_ORDER;
     }
 
     private void Awake()
@@ -44,6 +47,10 @@ public class GameManager : MonoBehaviour
     private void Update(){
         switch (curStep){
             case Step.GET_ORDER:
+                prevStep = curStep;
+                if(orderTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
+                    curStep = Step.ORDER;
+                }
                 break;
             case Step.ORDER:
                 if (curStep != prevStep){
@@ -102,7 +109,7 @@ public class GameManager : MonoBehaviour
                         curStep = Step.GAME_OVER;
                     } else{
                         curCustomerIndex++;
-                        curStep = Step.ORDER;
+                        curStep = Step.GET_ORDER;
                     }
                 }
                 break;
