@@ -12,10 +12,13 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private Button nextButton;
     [SerializeField] private Canvas dialogueCanvas;
     [SerializeField] private string[] lines;
+    [SerializeField] private List<DialogueComponent> dialogueComponents;
     [SerializeField] private float textSpeed;
+    [SerializeField] private Image speakerImg;
 
     private int index;
     private bool isTextDone = true;
+    private bool onUpdateLinesMode = true;
 
     private CharacterEmotion curEmotion = CharacterEmotion.None;
     [SerializeField] private Image SweatImg;
@@ -25,7 +28,6 @@ public class Dialogue : MonoBehaviour
     void Start()
     {
         nextButton.onClick.AddListener(OnNextButtonPressed); // track if button is clicked
-        StartDialogue();
     }
 
     // Update is called once per frame
@@ -40,16 +42,24 @@ public class Dialogue : MonoBehaviour
             return;
         }
 
-        UpdateCharacterImg();
         isTextDone = false;
         textComponent.text = string.Empty;
         nextButton.gameObject.SetActive(false); // hide button
         index = 0;
         dialogueCanvas.gameObject.SetActive(true);
-        StartCoroutine(TypeLine());
+
+        if (onUpdateLinesMode){
+            UpdateCharacterEmotionImg();
+            StartCoroutine(TypeLine());
+        } else {
+            SetCurEmotion(dialogueComponents[index].Emotion);
+            SetSpeakerImg(dialogueComponents[index].SpeakerImage);
+            StartCoroutine(TypeDialogueComponentLine());
+        }
     }
 
-    private void UpdateCharacterImg()
+    // HELPER FUNCTIONS TO UPDATE TEXT BOX COMPONENTS
+    private void UpdateCharacterEmotionImg()
     {
         if (curEmotion == CharacterEmotion.None){
             SweatImg.enabled = false;
@@ -65,12 +75,54 @@ public class Dialogue : MonoBehaviour
 
     public void SetCurEmotion(CharacterEmotion newEmotion){
         curEmotion = newEmotion;
-        UpdateCharacterImg();
+        UpdateCharacterEmotionImg();
     }
 
+    public void SetSpeakerImg(Sprite newSpeaker){
+        if (speakerImg != null && newSpeaker != null)
+        {
+            speakerImg.sprite = newSpeaker;
+        }
+    }
+
+    private void HideTextBox(){
+        if (dialogueCanvas != null){
+            dialogueCanvas.gameObject.SetActive(false);
+        }
+        isTextDone = true;  
+    }
+
+    // FUNCTIONS TO UPDATE DIALOGUE
+    public void UpdateText(string[] newLines){
+        lines = newLines;
+        onUpdateLinesMode = true;
+        StartDialogue();
+    }
+
+    public void UpdateFullDialogue(List<DialogueComponent> newConversation){
+        dialogueComponents = newConversation;
+        onUpdateLinesMode = false;
+        StartDialogue();
+    }
+
+    // FUNCTIONS TO PRINT TEXT
     IEnumerator TypeLine()
     {
+        if (!onUpdateLinesMode) yield break;
         foreach(char c in lines[index].ToCharArray())
+        {
+            textComponent.text += c;
+            yield return new WaitForSeconds(textSpeed);
+        }
+
+        // show button when line of text is fully displayed
+        nextButton.gameObject.SetActive(true);
+    }
+
+    IEnumerator TypeDialogueComponentLine()
+    {
+        if (onUpdateLinesMode) yield break;
+        foreach(char c in dialogueComponents[index].DialogueText.ToCharArray())
         {
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);
@@ -87,27 +139,46 @@ public class Dialogue : MonoBehaviour
 
         // Increment the index and display if there is additional text
         index++;
-        if (index < lines.Length)
-        {
-            textComponent.text = string.Empty;
-            StartCoroutine(TypeLine());
-        }
-        else
-        {
-            // hide text box
-            if (dialogueCanvas != null){
-                dialogueCanvas.gameObject.SetActive(false);
+
+        if (onUpdateLinesMode){
+            if (index < lines.Length)
+            {
+                textComponent.text = string.Empty;
+                StartCoroutine(TypeLine());
             }
-            isTextDone = true;
+            else
+            {
+                HideTextBox();
+            }
+        } else {
+            if (index < dialogueComponents.Count) {
+                textComponent.text = string.Empty;
+                SetCurEmotion(dialogueComponents[index].Emotion);
+                SetSpeakerImg(dialogueComponents[index].SpeakerImage);
+
+                StartCoroutine(TypeDialogueComponentLine());
+            } else {
+                HideTextBox();
+            }
         }
     }
 
-    public void UpdateText(string[] newLines){
-        lines = newLines;
-        StartDialogue();
-    }
+    // FOR EXTERNAL PURPOSES    
 
     public bool IsTextDone(){
         return isTextDone;
+    }
+}
+public class DialogueComponent
+{
+    public CharacterEmotion Emotion { get; set; }
+    public string DialogueText { get; set; }
+    public Sprite SpeakerImage { get; set; }
+
+    public DialogueComponent(CharacterEmotion emotion, string dialogueText, Sprite speakerImage)
+    {
+        Emotion = emotion;
+        DialogueText = dialogueText;
+        SpeakerImage = speakerImage;
     }
 }

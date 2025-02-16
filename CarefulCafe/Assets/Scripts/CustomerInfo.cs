@@ -7,13 +7,11 @@ public enum Allergy
     None, Dairy, Gluten, Egg
 }
 
+[System.Serializable]  // Ensure CustomerInfo is serializable
 public class CustomerInfo
 {
-    public string Name { get; set; }
-    public Allergy CusAllergy { get; set; }
-
-    public CustomerInfo (string name, Allergy allergy){
-        Name = name;
-        CusAllergy = allergy;
-    }
+    public string Name;
+    public Allergy CusAllergy;
+    public Sprite TextImg;
+    public string SeverityStatement;
 }
