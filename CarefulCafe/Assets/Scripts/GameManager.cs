@@ -148,7 +148,12 @@ public class GameManager : MonoBehaviour
                 }
 
                 if (dialogue.IsTextDone() && ovenTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
+                    SceneManager.LoadScene("BakingMG");
+                }
+
+                if (PlayerPrefs.GetInt("DoneWithMinigame", 0) == 1){
                     curStep = Step.WASHING_MINIGAME;
+                    PlayerPrefs.SetInt("DoneWithMinigame", 0);
                 }
                 
                 break;

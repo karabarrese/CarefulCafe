@@ -855,23 +855,26 @@ MonoBehaviour:
   - Name: Limmy
     CusAllergy: 1
     TextImg: {fileID: 359589886, guid: 29a2d5a82819a402b853b1f6821971fc, type: 3}
-    SeverityStatement: a little severe
+    SeverityStatement: My allergy is fairly serious. Any cross-contamination can
+      be dangerous.
   - Name: Angi
     CusAllergy: 2
     TextImg: {fileID: 21300000, guid: d7cd499c574d94a89a5458d6bea4ea4f, type: 3}
-    SeverityStatement: yap sever ig
+    SeverityStatement: My allergy isn't that serious. I'll be ok as long I as don't
+      consume to much gluten
   - Name: Car
     CusAllergy: 3
     TextImg: {fileID: 21300000, guid: d7cd499c574d94a89a5458d6bea4ea4f, type: 3}
-    SeverityStatement: just a little minor ick
+    SeverityStatement: My allergy is relatively severe.
   - Name: Tiffer
     CusAllergy: 1
     TextImg: {fileID: 21300000, guid: d7cd499c574d94a89a5458d6bea4ea4f, type: 3}
-    SeverityStatement: i will die
+    SeverityStatement: My allergy is not that severe, but too much cross-contamination
+      can be dangerous
   - Name: Irah
     CusAllergy: 2
     TextImg: {fileID: 21300000, guid: d7cd499c574d94a89a5458d6bea4ea4f, type: 3}
-    SeverityStatement: yap pretty severe
+    SeverityStatement: My allergy is pretty sever, so please be careful.
   managerDialogueSprite: {fileID: 21300000, guid: d7cd499c574d94a89a5458d6bea4ea4f, type: 3}
   playerDialogueSprite: {fileID: 21300000, guid: d7cd499c574d94a89a5458d6bea4ea4f, type: 3}
   player: {fileID: 328573757}
