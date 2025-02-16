@@ -29,8 +29,14 @@ public class Egg : MonoBehaviour
             dialogueArray.Add(instruction2);
             DialogueComponent instruction3  = new DialogueComponent(CharacterEmotion.None, "When reading, even things like 'made in a factory that contains traces of peanuts' could be detrimental to someone's health. To protect against cross contamination, we have these sealed containers.", managerDialogueSprite);
             dialogueArray.Add(instruction3);
-            DialogueComponent instruction4  = new DialogueComponent(CharacterEmotion.None, "When reading, even things like 'made in a factory that contains traces of peanuts' could be detrimental to someone's health. To protect against cross contamination, we have these sealed containers.", managerDialogueSprite);
+            DialogueComponent instruction4  = new DialogueComponent(CharacterEmotion.None, "For those with egg allergies, use an egg from plant as substitute", managerDialogueSprite);
             dialogueArray.Add(instruction4);
+            DialogueComponent instruction5  = new DialogueComponent(CharacterEmotion.None, "For those with gluten allergies, use almond flour.", managerDialogueSprite);
+            dialogueArray.Add(instruction5);
+            DialogueComponent instruction6  = new DialogueComponent(CharacterEmotion.None, "For those allergic to dairy products, use almond milk", managerDialogueSprite);
+            dialogueArray.Add(instruction6);
+            DialogueComponent instruction6  = new DialogueComponent(CharacterEmotion.None, "For those allergic to nuts, use regular milk and regular flour.", managerDialogueSprite);
+            dialogueArray.Add(instruction6);
             dialogue.UpdateFullDialogue(dialogueArray);
         }
         box1.SetActive(false);
@@ -48,7 +54,6 @@ public class Egg : MonoBehaviour
             hasAllergy = false;
         }
         gameObject.SetActive(true);
-        hasAllergy = true;
     }
 
     // Update is called once per frame

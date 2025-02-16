@@ -87,7 +87,7 @@ public class uiManager : MonoBehaviour
                 SceneManager.LoadScene("KitchenScene");
             } 
         }
-        //Debug.Log(PlayerPrefs.GetString("CurPlayerAllergy", "you failed"));
+        Debug.Log(PlayerPrefs.GetString("CurPlayerAllergy", "you failed"));
     }
     
     public void clickAdd()
@@ -172,7 +172,7 @@ public class uiManager : MonoBehaviour
                 {
                     ShowDialogue("That's a bit too much egg substitute");
                 }
-                else if (!eggAllergy)
+                else if (eggAllergy)
                 {
                     eggMixture.SetActive(true);
                     numIngredients++;
