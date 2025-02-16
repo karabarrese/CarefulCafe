@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Pantry.unity
     guid: dab42cc03555d472a883dc8928a8fa92
+  - enabled: 1
+    path: Assets/Scenes/MixingMG.unity
+    guid: d64023718031f446a8faf657ccb80b16
   m_configObjects: {}

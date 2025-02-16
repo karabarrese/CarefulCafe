@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     // Keep track of step
 
-    public enum Step {NONE, GET_ORDER, ORDER, PANTRY_MINIGAME, BAKING_MINIGAME, WASHING_MINIGAME, GIVE_ORDER, GAME_OVER}
+    public enum Step {NONE, GET_ORDER, ORDER, PANTRY_MINIGAME, MIXING_MINIGAME, BAKING_MINIGAME, WASHING_MINIGAME, GIVE_ORDER, GAME_OVER}
     private Step curStep;
     private Step prevStep = Step.NONE;
 
@@ -105,6 +105,30 @@ public class GameManager : MonoBehaviour
                     PlayerPrefs.SetString("CurPlayerAllergy", customers[curCustomerIndex].CusAllergy.ToString());
                     SceneManager.LoadScene("Pantry");
                 } 
+                if (PlayerPrefs.GetInt("DoneWithMinigame", 0) == 1){
+                    curStep = Step.MIXING_MINIGAME;
+                    PlayerPrefs.SetInt("DoneWithMinigame", 0);
+                }
+                break;
+            case Step.MIXING_MINIGAME:
+                if(curStep != prevStep){
+                    if(curCustomerIndex == 0){ // manager gives instructions on first playthrough
+                        List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+                        DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Next, bring your bowl over to the counter and press 'E' to mix the ingredients!", managerDialogueSprite);
+                        dialogueArray.Add(instruction);
+                        dialogue.UpdateFullDialogue(dialogueArray);
+                    }
+
+                    PlayerPrefs.SetInt("DoneWithMinigame", 0);
+                    PlayerPrefs.Save();
+
+                    prevStep = curStep;
+                }
+
+                if (dialogue.IsTextDone() && counterTrigger.IsPlayerInside() && Input.GetKeyDown(KeyCode.E)){
+                    SceneManager.LoadScene("MixingMG");
+                } 
+
                 if (PlayerPrefs.GetInt("DoneWithMinigame", 0) == 1){
                     curStep = Step.BAKING_MINIGAME;
                     PlayerPrefs.SetInt("DoneWithMinigame", 0);
