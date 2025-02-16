@@ -15,7 +15,9 @@ public class Milk : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+    void OnMouseDown()
+    {
         uiManagerScript.openMilkUI(); // Calls the UI function
-
     }
 }
