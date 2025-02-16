@@ -17,6 +17,10 @@ public class uiManager : MonoBehaviour
     public GameObject flourMixture;
     public GameObject eggMixture;
 
+    public bool glutenAllergy;
+    public bool dairyAllergy;
+    public bool eggAllergy;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +28,9 @@ public class uiManager : MonoBehaviour
         closeUI();
         flourMixture.SetActive(false);
         eggMixture.SetActive(false);
+
+        //testing glutenAllergy
+        glutenAllergy = true;
     }
 
 
@@ -40,8 +47,20 @@ public class uiManager : MonoBehaviour
     
     public void flourClick()
     {
-        flourMixture.SetActive(true);
-        closeUI();
+        if (!glutenAllergy)
+        {
+            flourMixture.SetActive(true);
+            closeUI();
+        }
+        else
+        {
+            List<DialogueComponent> dialogueArray = new List<DialogueComponent>();  
+            DialogueComponent instruction  = new DialogueComponent(CharacterEmotion.None, "Oops, we don't want to add the wheat flour to this recipe because our customer is allergic to gluten!", managerDialogueSprite);
+            dialogueArray.Add(instruction);
+            dialogue.UpdateFullDialogue(dialogueArray);
+            closeUI();
+        }
+        
     }
 
     public void eggClick()
