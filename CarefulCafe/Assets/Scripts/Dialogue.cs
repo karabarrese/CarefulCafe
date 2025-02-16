@@ -23,6 +23,7 @@ public class Dialogue : MonoBehaviour
     private CharacterEmotion curEmotion = CharacterEmotion.None;
     [SerializeField] private Image SweatImg;
     [SerializeField] private Image HeartImg;
+    private Dialogue Instance;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,18 @@ public class Dialogue : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     void StartDialogue()
@@ -85,7 +98,7 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    private void HideTextBox(){
+    public void HideTextBox(){
         if (dialogueCanvas != null){
             dialogueCanvas.gameObject.SetActive(false);
         }
