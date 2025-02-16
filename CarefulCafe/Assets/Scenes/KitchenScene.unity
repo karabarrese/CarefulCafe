@@ -986,9 +986,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec76ba6dac3964b5fa051bb37572a257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ovenTimer: {fileID: 627335098}
-  cafeMusic: {fileID: 1874055331}
-  plop: {fileID: 0}
 --- !u!1 &836957096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,14 +1205,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customers:
   - Name: Kellay
-    CusAllergy: 0
-    TextImg: {fileID: -1002844982, guid: df6946c1ee6ae455f9b4293a414bbbb6, type: 3}
-    SeverityStatement: 
-  - Name: Limmy
     CusAllergy: 1
     TextImg: {fileID: -1002844982, guid: df6946c1ee6ae455f9b4293a414bbbb6, type: 3}
     SeverityStatement: My allergy is fairly serious. Any cross-contamination can
       be dangerous.
+  - Name: Limmy
+    CusAllergy: 0
+    TextImg: {fileID: -1002844982, guid: df6946c1ee6ae455f9b4293a414bbbb6, type: 3}
+    SeverityStatement: 
   - Name: Angi
     CusAllergy: 2
     TextImg: {fileID: -1002844982, guid: df6946c1ee6ae455f9b4293a414bbbb6, type: 3}
@@ -1235,7 +1232,7 @@ MonoBehaviour:
     TextImg: {fileID: -1002844982, guid: df6946c1ee6ae455f9b4293a414bbbb6, type: 3}
     SeverityStatement: My allergy is pretty sever, so please be careful.
   managerDialogueSprite: {fileID: 21300000, guid: d7cd499c574d94a89a5458d6bea4ea4f, type: 3}
-  playerDialogueSprite: {fileID: 1681814335, guid: 72814507879c440b0a9d5fcc181d6567, type: 3}
+  playerDialogueSprite: {fileID: 406440024, guid: c6cd5b03bc1f74622a7e53fddc6f7e35, type: 3}
   curStep: 0
   player: {fileID: 328573757}
   dialogue: {fileID: 455757437}
