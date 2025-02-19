@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class OpeningScene : MonoBehaviour
 {
-    [SerializeField] private Canvas intro;
+    [SerializeField] private Image intro;
+    [SerializeField] private Button btn;
     
     public void HideIntro(){
         intro.gameObject.SetActive(false);
